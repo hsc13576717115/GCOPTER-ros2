@@ -95,7 +95,8 @@ namespace voxel_map
 
         inline void setOccupied(const Eigen::Vector3d &pos)
         {
-            const Eigen::Vector3i id = ((pos - o) / scale).cast<int>();
+            if (!pos.allFinite()) return;
+            const Eigen::Vector3i id = ((pos - o) / scale).array().floor().cast<int>().matrix();
             if (id(0) >= 0 && id(1) >= 0 && id(2) >= 0 &&
                 id(0) < mapSize(0) && id(1) < mapSize(1) && id(2) < mapSize(2))
             {
@@ -116,6 +117,11 @@ namespace voxel_map
         {
             if (r <= 0)
             {
+                surf.clear();
+                for(int x=0;x<mapSize.x();++x) for(int y=0;y<mapSize.y();++y) for(int z=0;z<mapSize.z();++z) {
+                    Eigen::Vector3i id(x,y,z);
+                    if(voxels[id.dot(step)]==Occupied) surf.emplace_back(x,y*step(1),z*step(2));
+                }
                 return;
             }
             else
@@ -190,7 +196,8 @@ namespace voxel_map
 
         inline bool query(const Eigen::Vector3d &pos) const
         {
-            const Eigen::Vector3i id = ((pos - o) / scale).cast<int>();
+            if (!pos.allFinite()) return true;
+            const Eigen::Vector3i id = ((pos - o) / scale).array().floor().cast<int>().matrix();
             if (id(0) >= 0 && id(1) >= 0 && id(2) >= 0 &&
                 id(0) < mapSize(0) && id(1) < mapSize(1) && id(2) < mapSize(2))
             {
@@ -222,7 +229,7 @@ namespace voxel_map
 
         inline Eigen::Vector3i posD2I(const Eigen::Vector3d &pos) const
         {
-            return ((pos - o) / scale).cast<int>();
+            return ((pos - o) / scale).array().floor().cast<int>().matrix();
         }
     };
 }

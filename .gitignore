@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# ROS 2 local products
+build/
+install/
+log/
+.vscode/
+__pycache__/
+.pytest_cache/
+*.pyc
+artifacts/

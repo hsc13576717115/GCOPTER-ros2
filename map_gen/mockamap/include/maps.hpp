@@ -1,24 +1,30 @@
 #ifndef MAPS_HPP
 #define MAPS_HPP
 
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
+#include <pcl/point_types.h>
 
 #include <pcl/point_cloud.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 
 namespace mocka {
+template<class T> void readParam(rclcpp::Node *node, const std::string &name, T &value, T fallback) {
+  if (!node->has_parameter(name)) node->declare_parameter<T>(name, fallback);
+  node->get_parameter(name, value);
+}
+
 
 class Maps {
 public:
   typedef struct BasicInfo {
-    ros::NodeHandle *nh_private;
+    rclcpp::Node *nh_private;
     int sizeX;
     int sizeY;
     int sizeZ;
     int seed;
     double scale;
-    sensor_msgs::PointCloud2 *output;
+    sensor_msgs::msg::PointCloud2 *output;
     pcl::PointCloud<pcl::PointXYZ> *cloud;
   } BasicInfo;
 

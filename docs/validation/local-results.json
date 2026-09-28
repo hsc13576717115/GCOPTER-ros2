@@ -1,0 +1,45 @@
+{
+  "scenarios": {
+    "obstacle": [
+      "START_ACCEPTED",
+      "PLANNING 1",
+      "VALIDATED duration=4.87728 endpoint_error=1.83103e-15 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0 0 0 0 0",
+      "SUCCESS 1 duration=4.877281",
+      "COMPLETED 1"
+    ],
+    "obstacle_repeat": [
+      "START_ACCEPTED",
+      "PLANNING 2",
+      "VALIDATED duration=4.87912 endpoint_error=1.74838e-15 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0 0 0 0 0",
+      "SUCCESS 2 duration=4.879120",
+      "COMPLETED 2"
+    ],
+    "empty": [
+      "START_ACCEPTED",
+      "PLANNING 1",
+      "VALIDATED duration=4.31793 endpoint_error=3.55965e-15 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0 0 0 0 0",
+      "SUCCESS 1 duration=4.317934",
+      "COMPLETED 1"
+    ],
+    "empty_repeat": [
+      "START_ACCEPTED",
+      "PLANNING 2",
+      "VALIDATED duration=4.31811 endpoint_error=4.44089e-16 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0 0 0 0 0",
+      "SUCCESS 2 duration=4.318107",
+      "COMPLETED 2"
+    ],
+    "unreachable": [
+      "START_ACCEPTED",
+      "PLANNING 2",
+      "VALIDATED duration=3.77194 endpoint_error=4.44089e-16 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0 0 0 0 0",
+      "SUCCESS 2 duration=3.771943",
+      "COMPLETED 2"
+    ]
+  },
+  "map_types": {
+    "1": 911,
+    "2": 144,
+    "3": 792,
+    "4": 924
+  }
+}

@@ -1,0 +1,82 @@
+Starting >>> mockamap
+Finished <<< mockamap [0.01s]
+Starting >>> gcopter
+UpdateCTestConfiguration  from :/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/CTestConfiguration.ini
+Parse Config file:/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/CTestConfiguration.ini
+   Site: hsc-MS-7E30
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20260928-0231 - Experimental
+UpdateCTestConfiguration  from :/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/CTestConfiguration.ini
+Parse Config file:/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/CTestConfiguration.ini
+Test project /home/hsc/Desktop/GCOPTER-ros2/build/gcopter
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_geometry
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/humble/share/ament_cmake_test/cmake/run_test.py" "/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_geometry.gtest.xml" "--package-name" "gcopter" "--output-file" "/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/ament_cmake_gtest/test_geometry.txt" "--command" "/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_geometry" "--gtest_output=xml:/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_geometry.gtest.xml"
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/home/hsc/Desktop/GCOPTER-ros2/build/gcopter':
+1:  - /home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_geometry --gtest_output=xml:/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_geometry.gtest.xml
+1: Running main() from /opt/ros/humble/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 3 tests from 3 test suites.
+1: [----------] Global test environment set-up.
+1: [----------] 1 test from Voxels
+1: [ RUN      ] Voxels.BoundariesAndZeroDilation
+1: [       OK ] Voxels.BoundariesAndZeroDilation (0 ms)
+1: [----------] 1 test from Voxels (0 ms total)
+1: 
+1: [----------] 1 test from Corridor
+1: [ RUN      ] Corridor.EmptyAndRepeatedInput
+1: [       OK ] Corridor.EmptyAndRepeatedInput (0 ms)
+1: [----------] 1 test from Corridor (0 ms total)
+1: 
+1: [----------] 1 test from Planning
+1: [ RUN      ] Planning.ExactPathAroundObstacleAndMinimumJerkTrajectory
+1: [       OK ] Planning.ExactPathAroundObstacleAndMinimumJerkTrajectory (1011 ms)
+1: [----------] 1 test from Planning (1011 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 3 tests from 3 test suites ran. (1011 ms total)
+1: [  PASSED  ] 3 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_geometry.gtest.xml'
+1: -- run_test.py: verify result file '/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_geometry.gtest.xml'
+1/2 Test #1: test_geometry ....................   Passed    1.05 sec
+test 2
+    Start 2: test_demo
+
+2: Test command: /usr/bin/python3 "-u" "/opt/ros/humble/share/ament_cmake_test/cmake/run_test.py" "/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_demo.xunit.xml" "--package-name" "gcopter" "--output-file" "/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/ament_cmake_pytest/test_demo.txt" "--command" "/usr/bin/python3" "-u" "-m" "pytest" "/home/hsc/Desktop/GCOPTER-ros2/gcopter/test/test_demo.py" "-o" "cache_dir=/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/ament_cmake_pytest/test_demo/.cache" "--junit-xml=/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_demo.xunit.xml" "--junit-prefix=gcopter"
+2: Test timeout computed to be: 240
+2: -- run_test.py: invoking following command in '/home/hsc/Desktop/GCOPTER-ros2/build/gcopter':
+2:  - /usr/bin/python3 -u -m pytest /home/hsc/Desktop/GCOPTER-ros2/gcopter/test/test_demo.py -o cache_dir=/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/ament_cmake_pytest/test_demo/.cache --junit-xml=/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_demo.xunit.xml --junit-prefix=gcopter
+2: ============================= test session starts ==============================
+2: platform linux -- Python 3.10.12, pytest-6.2.5, py-1.10.0, pluggy-0.13.0
+2: cachedir: build/gcopter/ament_cmake_pytest/test_demo/.cache
+2: rootdir: /home/hsc/Desktop/GCOPTER-ros2
+2: plugins: ament-flake8-0.12.15, ament-copyright-0.12.15, ament-lint-0.12.15, launch-testing-ros-0.19.14, ament-xmllint-0.12.15, launch-testing-1.0.15, ament-pep257-0.12.15, colcon-core-0.21.3, cov-3.0.0
+2: collected 3 items
+2: 
+2: ../../gcopter/test/test_demo.py ...                                      [100%]
+2: 
+2: - generated xml file: /home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_demo.xunit.xml -
+2: ============================== 3 passed in 27.20s ==============================
+2: -- run_test.py: return code 0
+2: -- run_test.py: verify result file '/home/hsc/Desktop/GCOPTER-ros2/build/gcopter/test_results/gcopter/test_demo.xunit.xml'
+2/2 Test #2: test_demo ........................   Passed   27.49 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+gtest     =   1.05 sec*proc (1 test)
+pytest    =  27.49 sec*proc (1 test)
+
+Total Test time (real) =  28.54 sec
+Finished <<< gcopter [28.6s]
+
+Summary: 2 packages finished [28.7s]

@@ -1,124 +1,46 @@
-#include <ros/ros.h>
-#include <sensor_msgs/PointCloud2.h>
-
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
-#include <pcl/kdtree/kdtree_flann.h>
-#include <pcl/point_cloud.h>
-#include <pcl_conversions/pcl_conversions.h>
-
 #include "maps.hpp"
+#include <cmath>
+#include <chrono>
+#include <stdexcept>
 
-void
-optimizeMap(mocka::Maps::BasicInfo& in)
-{
-  std::vector<int>* temp = new std::vector<int>;
-
-  pcl::KdTreeFLANN<pcl::PointXYZ>     kdtree;
-  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-
-  cloud->width  = in.cloud->width;
-  cloud->height = in.cloud->height;
-  cloud->points.resize(cloud->width * cloud->height);
-
-  for (int i = 0; i < cloud->width; i++)
-  {
-    cloud->points[i].x = in.cloud->points[i].x;
-    cloud->points[i].y = in.cloud->points[i].y;
-    cloud->points[i].z = in.cloud->points[i].z;
+class MapNode : public rclcpp::Node {
+ public:
+  MapNode() : Node("mockamap_node") {
+    int seed, sx, sy, sz, type;
+    double resolution, frequency;
+    mocka::readParam(this, "seed", seed, 1024);
+    mocka::readParam(this, "type", type, 1);
+    mocka::readParam(this, "x_length", sx, 50);
+    mocka::readParam(this, "y_length", sy, 50);
+    mocka::readParam(this, "z_length", sz, 5);
+    mocka::readParam(this, "resolution", resolution, 0.25);
+    mocka::readParam(this, "update_freq", frequency, 1.0);
+    if (!std::isfinite(resolution) || resolution <= 0 || !std::isfinite(frequency) || frequency <= 0 ||
+        sx <= 0 || sy <= 0 || sz <= 0 || type < 1 || type > 4 ||
+        std::min({sx, sy, sz}) / resolution < 2 ||
+        double(sx)*sy*sz/std::pow(resolution, 3) > 20000000)
+      throw std::invalid_argument("Invalid map dimensions, resolution, frequency or type");
+    publisher_ = create_publisher<sensor_msgs::msg::PointCloud2>("mock_map", rclcpp::QoS(1).reliable().transient_local());
+    mocka::Maps::BasicInfo info{};
+    info.nh_private = this;
+    info.seed = seed; info.scale = 1.0/resolution;
+    info.sizeX = int(sx/resolution); info.sizeY = int(sy/resolution); info.sizeZ = int(sz/resolution);
+    info.output = &message_; info.cloud = &cloud_;
+    mocka::Maps map; map.setInfo(info); map.generate(type);
+    auto publish = [this]() { message_.header.stamp = now(); publisher_->publish(message_); };
+    publish();
+    timer_ = create_wall_timer(std::chrono::duration<double>(1.0/frequency), publish);
+    RCLCPP_INFO(get_logger(), "Map ready: type=%d points=%u frame=odom", type, message_.width * message_.height);
   }
-
-  kdtree.setInputCloud(cloud);
-  double radius = 1.75 / in.scale; // 1.75 is the rounded up value of sqrt(3)
-
-  for (int i = 0; i < cloud->width; i++)
-  {
-    std::vector<int>   pointIdxRadiusSearch;
-    std::vector<float> pointRadiusSquaredDistance;
-
-    if (kdtree.radiusSearch(cloud->points[i], radius, pointIdxRadiusSearch,
-                            pointRadiusSquaredDistance) >= 27)
-    {
-      temp->push_back(i);
-    }
-  }
-  for (int i = temp->size() - 1; i >= 0; i--)
-  {
-    in.cloud->points.erase(in.cloud->points.begin() +
-                           temp->at(i)); // erasing the enclosed points
-  }
-  in.cloud->width -= temp->size();
-
-  pcl::toROSMsg(*in.cloud, *in.output);
-  in.output->header.frame_id = "odom";
-  ROS_INFO("finish: number of points after optimization %d", in.cloud->width);
-  delete temp;
-  return;
-}
-
-int
-main(int argc, char** argv)
-{
-  ros::init(argc, argv, "mockamap");
-  ros::NodeHandle nh;
-  ros::NodeHandle nh_private("~");
-
-  ros::Publisher pcl_pub =
-    nh.advertise<sensor_msgs::PointCloud2>("mock_map", 1);
-  pcl::PointCloud<pcl::PointXYZ> cloud;
-  sensor_msgs::PointCloud2       output;
-  // Fill in the cloud data
-
-  int seed;
-
-  int sizeX;
-  int sizeY;
-  int sizeZ;
-
-  double scale;
-  double update_freq;
-
-  int type;
-
-  nh_private.param("seed", seed, 4546);
-  nh_private.param("update_freq", update_freq, 1.0);
-  nh_private.param("resolution", scale, 0.38);
-  nh_private.param("x_length", sizeX, 100);
-  nh_private.param("y_length", sizeY, 100);
-  nh_private.param("z_length", sizeZ, 10);
-
-  nh_private.param("type", type, 1);
-
-  scale = 1 / scale;
-  sizeX = sizeX * scale;
-  sizeY = sizeY * scale;
-  sizeZ = sizeZ * scale;
-
-  mocka::Maps::BasicInfo info;
-  info.nh_private = &nh_private;
-  info.sizeX      = sizeX;
-  info.sizeY      = sizeY;
-  info.sizeZ      = sizeZ;
-  info.seed       = seed;
-  info.scale      = scale;
-  info.output     = &output;
-  info.cloud      = &cloud;
-
-  mocka::Maps map;
-  map.setInfo(info);
-  map.generate(type);
-
-  //  optimizeMap(info);
-
-  //! @note publish loop
-  ros::Rate loop_rate(update_freq);
-  while (ros::ok())
-  {
-    pcl_pub.publish(output);
-    ros::spinOnce();
-    loop_rate.sleep();
-  }
-  return 0;
+ private:
+  pcl::PointCloud<pcl::PointXYZ> cloud_;
+  sensor_msgs::msg::PointCloud2 message_;
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr publisher_;
+  rclcpp::TimerBase::SharedPtr timer_;
+};
+int main(int argc, char **argv) {
+  rclcpp::init(argc, argv);
+  try { rclcpp::spin(std::make_shared<MapNode>()); }
+  catch (const std::exception &e) { RCLCPP_ERROR(rclcpp::get_logger("mockamap"), "%s", e.what()); rclcpp::shutdown(); return 1; }
+  rclcpp::shutdown(); return 0;
 }

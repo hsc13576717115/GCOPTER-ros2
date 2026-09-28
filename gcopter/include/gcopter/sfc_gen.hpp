@@ -51,6 +51,8 @@ namespace sfc_gen
                            const double &timeout,
                            std::vector<Eigen::Vector3d> &p)
     {
+        p.clear();
+        if(!s.allFinite() || !g.allFinite() || mapPtr->query(s) || mapPtr->query(g) || (s-g).norm()<1.e-6) return INFINITY;
         auto space(std::make_shared<ompl::base::RealVectorStateSpace>(3));
 
         ompl::base::RealVectorBounds bounds(3);
@@ -73,6 +75,7 @@ namespace sfc_gen
                                                lb(2) + (*pos)[2]);
                 return mapPtr->query(position) == 0;
             });
+        si->setStateValidityCheckingResolution(std::min(0.01, 0.5*mapPtr->getScale()/space->getMaximumExtent()));
         si->setup();
 
         ompl::msg::setLogLevel(ompl::msg::LOG_NONE);
@@ -96,7 +99,7 @@ namespace sfc_gen
         solved = planner->ompl::base::Planner::solve(timeout);
 
         double cost = INFINITY;
-        if (solved)
+        if (solved == ompl::base::PlannerStatus::EXACT_SOLUTION)
         {
             p.clear();
             const ompl::geometric::PathGeometric path_ =
@@ -123,6 +126,7 @@ namespace sfc_gen
                             const double eps = 1.0e-6)
     {
         hpolys.clear();
+        if(path.size()<2 || progress<=0 || range<=0) return;
         const int n = path.size();
         Eigen::Matrix<double, 6, 4> bd = Eigen::Matrix<double, 6, 4>::Zero();
         bd(0, 0) = 1.0;
@@ -149,6 +153,7 @@ namespace sfc_gen
                 b = path[i];
                 i++;
             }
+            if ((b-a).norm()<1.e-9) continue;
             bs.emplace_back(b);
 
             bd(0, 3) = -std::min(std::max(a(0), b(0)) + range, highCorner(0));
@@ -166,9 +171,10 @@ namespace sfc_gen
                     valid_pc.emplace_back(p);
                 }
             }
-            Eigen::Map<const Eigen::Matrix<double, 3, -1, Eigen::ColMajor>> pc(valid_pc[0].data(), 3, valid_pc.size());
-
-            firi::firi(bd, pc, a, b, hp);
+            Eigen::Matrix3Xd pc(3,valid_pc.size());
+            for(size_t j=0;j<valid_pc.size();++j) pc.col(j)=valid_pc[j];
+            if(valid_pc.empty()) hp=bd;
+            else if(!firi::firi(bd, pc, a, b, hp) || !hp.allFinite()) {hpolys.clear(); return;}
 
             if (hpolys.size() != 0)
             {
@@ -176,7 +182,8 @@ namespace sfc_gen
                 if (3 <= ((hp * ah).array() > -eps).cast<int>().sum() +
                              ((hpolys.back() * ah).array() > -eps).cast<int>().sum())
                 {
-                    firi::firi(bd, pc, a, a, gap, 1);
+                    if(valid_pc.empty()) gap=bd;
+                    else if(!firi::firi(bd, pc, a, a, gap, 1) || !gap.allFinite()) {hpolys.clear();return;}
                     hpolys.emplace_back(gap);
                 }
             }
@@ -187,6 +194,7 @@ namespace sfc_gen
 
     inline void shortCut(std::vector<Eigen::MatrixX4d> &hpolys)
     {
+        if(hpolys.empty()) return;
         std::vector<Eigen::MatrixX4d> htemp = hpolys;
         if (htemp.size() == 1)
         {

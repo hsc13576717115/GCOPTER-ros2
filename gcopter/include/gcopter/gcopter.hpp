@@ -28,6 +28,7 @@
 #include "gcopter/minco.hpp"
 #include "gcopter/flatness.hpp"
 #include "gcopter/lbfgs.hpp"
+#include <algorithm>
 
 #include <Eigen/Eigen>
 
@@ -398,7 +399,7 @@ namespace gcopter
                     violaVel = vel.squaredNorm() - velSqrMax;
                     violaOmg = omg.squaredNorm() - omgSqrMax;
                     cos_theta = 1.0 - 2.0 * (quat(1) * quat(1) + quat(2) * quat(2));
-                    violaTheta = acos(cos_theta) - thetaMax;
+                    violaTheta = acos(std::clamp(cos_theta, -1.0, 1.0)) - thetaMax;
                     violaThrust = (thr - thrustMean) * (thr - thrustMean) - thrustSqrRadi;
 
                     gradThr = 0.0;
@@ -434,7 +435,7 @@ namespace gcopter
                     if (smoothedL1(violaTheta, smoothFactor, violaThetaPena, violaThetaPenaD))
                     {
                         gradQuat += weightTheta * violaThetaPenaD /
-                                    sqrt(1.0 - cos_theta * cos_theta) * 4.0 *
+                                    sqrt(std::max(1.e-12, 1.0 - cos_theta * cos_theta)) * 4.0 *
                                     Eigen::Vector4d(0.0, quat(1), quat(2), 0.0);
                         pena += weightTheta * violaThetaPena;
                     }

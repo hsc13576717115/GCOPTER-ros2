@@ -1,0 +1,13 @@
+WAITING_FOR_MAP
+MAP_READY
+START_ACCEPTED
+PLANNING 1
+VALIDATED duration=12.6112 endpoint_error=0 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0.000221146           0           0           0           0
+SUCCESS 1 duration=12.611153
+COMPLETED 1
+START_ACCEPTED
+PLANNING 2
+VALIDATED duration=12.2396 endpoint_error=1.77636e-15 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0.0038996         0         0         0         0
+SUCCESS 2 duration=12.239606
+COMPLETED 2
+PASS: complete planning, playback, finite telemetry and recovery

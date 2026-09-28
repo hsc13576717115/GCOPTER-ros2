@@ -1,0 +1,46 @@
+[INFO] [launch]: All log files can be found below /home/hsc/.ros/log/2026-09-28-10-31-03-869780-hsc-MS-7E30-372671
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [static_transform_publisher-1]: process started with pid [372673]
+[INFO] [mockamap_node-2]: process started with pid [372675]
+[INFO] [global_planning-3]: process started with pid [372677]
+[INFO] [rviz2-4]: process started with pid [372679]
+[INFO] [rqt_plot-5]: process started with pid [372681]
+[static_transform_publisher-1] [INFO] [1790562663.901385816] [demo_fixed_frame]: Spinning until stopped - publishing transform
+[static_transform_publisher-1] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-1] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-1] from 'world' to 'odom'
+[global_planning-3] [INFO] [1790562663.903426135] [global_planning_node]: WAITING_FOR_MAP
+[mockamap_node-2] [INFO] [1790562663.982263973] [mockamap_node]: threshold: 0.057230
+[mockamap_node-2] [INFO] [1790562664.014574358] [mockamap_node]: the number of points before optimization is 239999
+[mockamap_node-2] [INFO] [1790562664.015690453] [mockamap_node]: finish: infill 0.299999%
+[mockamap_node-2] [INFO] [1790562664.016810069] [mockamap_node]: Map ready: type=1 points=239999 frame=odom
+[global_planning-3] [INFO] [1790562664.043024744] [global_planning_node]: MAP_READY
+[rviz2-4] [INFO] [1790562664.050800802] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-4] [INFO] [1790562664.050926982] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-4] [INFO] [1790562664.058455338] [rviz2]: Stereo is NOT SUPPORTED
+[global_planning-3] [INFO] [1790562673.733046001] [global_planning_node]: START_ACCEPTED
+[global_planning-3] [INFO] [1790562673.733188082] [global_planning_node]: PLANNING 1
+[global_planning-3] [INFO] [1790562674.250930323] [global_planning_node]: VALIDATED duration=12.6112 endpoint_error=0 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0.000221146           0           0           0           0
+[global_planning-3] [INFO] [1790562674.251051143] [global_planning_node]: SUCCESS 1 duration=12.611153
+[global_planning-3] [INFO] [1790562686.863506405] [global_planning_node]: COMPLETED 1
+[global_planning-3] [INFO] [1790562686.864298198] [global_planning_node]: START_ACCEPTED
+[global_planning-3] [INFO] [1790562686.865022742] [global_planning_node]: PLANNING 2
+[global_planning-3] [INFO] [1790562687.385892658] [global_planning_node]: VALIDATED duration=12.2396 endpoint_error=1.77636e-15 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0.0038996         0         0         0         0
+[global_planning-3] [INFO] [1790562687.386064489] [global_planning_node]: SUCCESS 2 duration=12.239606
+[global_planning-3] [INFO] [1790562699.633517061] [global_planning_node]: COMPLETED 2
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [rqt_plot-5]: sending signal 'SIGINT' to process[rqt_plot-5]
+[INFO] [rviz2-4]: sending signal 'SIGINT' to process[rviz2-4]
+[INFO] [global_planning-3]: sending signal 'SIGINT' to process[global_planning-3]
+[INFO] [mockamap_node-2]: sending signal 'SIGINT' to process[mockamap_node-2]
+[INFO] [static_transform_publisher-1]: sending signal 'SIGINT' to process[static_transform_publisher-1]
+[rqt_plot-5] [INFO] [1790562742.415932792] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[rviz2-4] [INFO] [1790562742.416156953] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[global_planning-3] [INFO] [1790562742.416347654] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[mockamap_node-2] [INFO] [1790562742.416523545] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[static_transform_publisher-1] [INFO] [1790562742.416687146] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [mockamap_node-2]: process has finished cleanly [pid 372675]
+[INFO] [static_transform_publisher-1]: process has finished cleanly [pid 372673]
+[INFO] [global_planning-3]: process has finished cleanly [pid 372677]
+[INFO] [rviz2-4]: process has finished cleanly [pid 372679]
+[INFO] [rqt_plot-5]: process has finished cleanly [pid 372681]

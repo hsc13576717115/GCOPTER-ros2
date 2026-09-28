@@ -1,0 +1,58 @@
+[INFO] [launch]: All log files can be found below /home/hsc/.ros/log/2026-09-28-10-23-16-709180-hsc-MS-7E30-371519
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [static_transform_publisher-1]: process started with pid [371521]
+[INFO] [mockamap_node-2]: process started with pid [371523]
+[INFO] [global_planning-3]: process started with pid [371525]
+[INFO] [rviz2-4]: process started with pid [371527]
+[INFO] [rqt_plot-5]: process started with pid [371529]
+[static_transform_publisher-1] [INFO] [1790562196.739416217] [demo_fixed_frame]: Spinning until stopped - publishing transform
+[static_transform_publisher-1] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-1] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-1] from 'world' to 'odom'
+[global_planning-3] [INFO] [1790562196.740943434] [global_planning_node]: WAITING_FOR_MAP
+[mockamap_node-2] [INFO] [1790562196.813757553] [mockamap_node]: threshold: 0.057230
+[mockamap_node-2] [INFO] [1790562196.846239618] [mockamap_node]: the number of points before optimization is 239999
+[mockamap_node-2] [INFO] [1790562196.847148213] [mockamap_node]: finish: infill 0.299999%
+[mockamap_node-2] [INFO] [1790562196.848350279] [mockamap_node]: Map ready: type=1 points=239999 frame=odom
+[global_planning-3] [INFO] [1790562196.874485764] [global_planning_node]: MAP_READY
+[rviz2-4] [INFO] [1790562196.880346812] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-4] [INFO] [1790562196.880460052] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-4] [INFO] [1790562196.887774748] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-4] [INFO] [1790562235.242567281] [rviz2]: Setting goal pose: Frame:odom, Position(-7.6745, -6.40544, 0), Orientation(0, 0, 0.92584, 0.377916) = Angle: 2.3665
+[global_planning-3] [INFO] [1790562235.242769962] [global_planning_node]: REJECTED occupied, within planning clearance or outside map
+[rviz2-4] [INFO] [1790562272.150325600] [rviz2]: Setting goal pose: Frame:odom, Position(-13.4281, -10.8943, 0), Orientation(0, 0, 0.517361, 0.855767) = Angle: 1.08753
+[global_planning-3] [INFO] [1790562272.150575611] [global_planning_node]: START_ACCEPTED
+[rviz2-4] [INFO] [1790562417.274802404] [rviz2]: Setting goal pose: Frame:odom, Position(9.83535, 9.87534, 0), Orientation(0, 0, 0.540778, 0.841165) = Angle: 1.14272
+[global_planning-3] [INFO] [1790562417.275099106] [global_planning_node]: PLANNING 1
+[global_planning-3] [INFO] [1790562417.792298744] [global_planning_node]: VALIDATED duration=12.723 endpoint_error=8.88178e-16 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0.000560159           0           0           0           0
+[global_planning-3] [INFO] [1790562417.792410005] [global_planning_node]: SUCCESS 1 duration=12.723024
+[global_planning-3] [INFO] [1790562430.521079753] [global_planning_node]: COMPLETED 1
+[rviz2-4] [INFO] [1790562452.222173089] [rviz2]: Setting goal pose: Frame:odom, Position(9.83535, 9.87534, 0), Orientation(0, 0, 0.540778, 0.841165) = Angle: 1.14272
+[global_planning-3] [INFO] [1790562452.222553320] [global_planning_node]: START_ACCEPTED
+[rviz2-4] [INFO] [1790562452.325899406] [rviz2]: Setting goal pose: Frame:odom, Position(-13.4281, -10.8943, 0), Orientation(0, 0, 0.517361, 0.855767) = Angle: 1.08753
+[global_planning-3] [INFO] [1790562452.326457718] [global_planning_node]: PLANNING 2
+[global_planning-3] [INFO] [1790562452.843794148] [global_planning_node]: VALIDATED duration=13.053 endpoint_error=8.88178e-16 sample_dt=0.01 violations[v,omega,tilt,thrust_min,thrust_max]=0.00643582          0          0          0          0
+[global_planning-3] [INFO] [1790562452.843899258] [global_planning_node]: SUCCESS 2 duration=13.052953
+[global_planning-3] [INFO] [1790562465.901024800] [global_planning_node]: COMPLETED 2
+[rqt_plot-5] /opt/ros/humble/local/lib/python3.10/dist-packages/qt_gui/main.py:660: UserWarning: Glyph 65288 (\N{FULLWIDTH LEFT PARENTHESIS}) missing from current font.
+[rqt_plot-5]   return app.exec_()
+[rqt_plot-5] /opt/ros/humble/local/lib/python3.10/dist-packages/qt_gui/main.py:660: UserWarning: Glyph 26494 (\N{CJK UNIFIED IDEOGRAPH-677E}) missing from current font.
+[rqt_plot-5]   return app.exec_()
+[rqt_plot-5] /opt/ros/humble/local/lib/python3.10/dist-packages/qt_gui/main.py:660: UserWarning: Glyph 65289 (\N{FULLWIDTH RIGHT PARENTHESIS}) missing from current font.
+[rqt_plot-5]   return app.exec_()
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [rqt_plot-5]: sending signal 'SIGINT' to process[rqt_plot-5]
+[INFO] [rviz2-4]: sending signal 'SIGINT' to process[rviz2-4]
+[INFO] [global_planning-3]: sending signal 'SIGINT' to process[global_planning-3]
+[INFO] [mockamap_node-2]: sending signal 'SIGINT' to process[mockamap_node-2]
+[INFO] [static_transform_publisher-1]: sending signal 'SIGINT' to process[static_transform_publisher-1]
+[rqt_plot-5] [INFO] [1790562640.872303946] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[rviz2-4] [INFO] [1790562640.872553337] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[global_planning-3] [INFO] [1790562640.872775948] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[mockamap_node-2] [INFO] [1790562640.872954989] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[static_transform_publisher-1] [INFO] [1790562640.873152670] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [static_transform_publisher-1]: process has finished cleanly [pid 371521]
+[INFO] [mockamap_node-2]: process has finished cleanly [pid 371523]
+[INFO] [global_planning-3]: process has finished cleanly [pid 371525]
+[INFO] [rviz2-4]: process has finished cleanly [pid 371527]
+[INFO] [rqt_plot-5]: process has finished cleanly [pid 371529]
